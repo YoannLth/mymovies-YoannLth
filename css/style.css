@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+
+@font-face {
+	font-family: OpenSans_Bold;
+    src: url(../font/Open_Sans/OpenSans-Bold.ttf);
+}
+
+@font-face {
+    font-family: OpenSans_Light;
+    src: url(../font/Open_Sans/OpenSans-Light.ttf);
+}
+
+.row {
+    margin-bottom: 15px;
+}
+
+.row [class^="col-"] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #F8F8F8;
+    border: 1px solid rgba(86,61,124,.2);
+}
+
+h2{
+	color : #2D7DBA;
+}
+
+.movie_h2{
+	font-family:OpenSans_Bold;
+	color:#000;
+}
+
+h3{
+	font-family:OpenSans_Light;
+}
+
+.movie_p{
+	font-family:OpenSans_Light;
+	font-size:17px !important;
+	margin-top : 30px;
+}
+
+hr {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #EEEEEE -moz-use-text-color #EEEEEE;
+  border-style: solid none;
+  border-width: 1px 0;
+  margin: 18px 0;
+  color : #EEEEEE
+}
+
+.nav_container{
+	width : 50%;
+	margin-left:auto;
+	margin-right: auto;
+	margin-top: 20px;
+	margin-bottom: 60px;
+}

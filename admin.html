@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<link href="lib/Bootstrap%203.5/css/bootstrap.min.css" rel="stylesheet">
+    	<link href="css/style.css" rel="stylesheet">
+        <title>Administration</title>
+    </head>
+
+    <body>
+    
+    	<nav class="navbar navbar-default">
+        	<div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="index.html">
+                  	<span class="glyphicon glyphicon-film"></span> MyMovies
+                   </a>
+                </div>
+        
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#">Ajouter un film</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li>
+                    	<a href="#"><span class="glyphicon glyphicon-cog"></span> Administration</a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Bienvenue, Yoann <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">Profil</a></li>
+                        <li><a href="#">Quitter</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+              </div><!-- /.container-fluid -->
+          </div><!-- /.container-fluid --> 
+        </nav>
+
+		<div class="container">
+        	<h1 class="text-center">Administration</h1>
+            
+            <div class="nav_container">
+                <ul class="nav nav-tabs nav-justified">
+                  <li role="presentation"><a href="#">Films</a></li>
+                  <li role="presentation" class="active"><a href="#">Utilisateurs</a></li>
+                </ul>
+            </div>
+            
+            <table class="table" style="margin-bottom:60px;">
+            	<tr>
+                    <th>Nom</th>
+                    <th>Prenom</th> 
+                    <th>Login</th>
+                    <th>Action</th>
+              	</tr>
+             	<tr>
+                    <td>Karim</td>
+                    <td>Benzema</td> 
+                    <td>Karim_kb69</td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-xs">
+                        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs">
+                        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </td>
+              	</tr>
+                <tr>
+                    <td>Harry</td>
+                    <td>Potter</td> 
+                    <td>HP_du_77</td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-xs">
+                        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs">
+                        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </td>
+              	</tr>
+            </table>
+            
+            <hr>
+        	<p class="text-center">Construit avec <span class="glyphicon glyphicon-heart"></span> par <a href="https://fr.linkedin.com/in/yoann-lathuiliere-05b716a9">Yoann Lathuiliere</a></p>
+        </div>
+      	
+        <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
+    	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
+    </body>
+</html>
