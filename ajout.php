@@ -6,7 +6,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<link href="lib/Bootstrap%203.5/css/bootstrap.min.css" rel="stylesheet">
     	<link href="css/style.css" rel="stylesheet">
-        <title>Administration</title>
+        <title>Ajouter un film</title>
     </head>
 
     <body>
@@ -17,49 +17,54 @@
         ?>
 
 		<div class="container">
-        	<h1 class="text-center">Administration</h1>
             
-            <div class="nav_container">
-                <ul class="nav nav-tabs nav-justified">
-                  <li role="presentation"><a href="#">Films</a></li>
-                  <li role="presentation" class="active"><a href="#">Utilisateurs</a></li>
-                </ul>
+            <h2 class="text-center">Ajout d'un film</h2>
+            <div class="well">
+                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="movie-add.php" method="post">
+                    <input type="hidden" name="id" value="">
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label">Titre</label>
+                    <div class="col-sm-6">
+                    <input type="text" name="title" value="" class="form-control" placeholder="Entrez le titre du film" required autofocus>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label">Description courte</label>
+                    <div class="col-sm-6">
+                    <textarea name="shortDescription" class="form-control" placeholder="Entrez sa description courte" required></textarea>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label">Description longue</label>
+                    <div class="col-sm-6">
+                    <textarea name="longDescription" class="form-control" rows="6" placeholder="Entrez sa description longue" required></textarea>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label">Réalisateur</label>
+                    <div class="col-sm-6">
+                    <input type="text" name="director" value="" class="form-control" placeholder="Entrez son réalisateur" required>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label">Année de sortie</label>
+                    <div class="col-sm-4">
+                    <input type="number" name="year" value="" class="form-control" placeholder="Entrez son année de sortie" required>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label">Image</label>
+                    <div class="col-sm-4">
+                    <input type="file" name="image"/>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                    <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-save"></span> Enregistrer</button>
+                    </div>
+                    </div>
+                </form>        
             </div>
-            
-            <table class="table" style="margin-bottom:60px;">
-            	<tr>
-                    <th>Nom</th>
-                    <th>Prenom</th> 
-                    <th>Login</th>
-                    <th>Action</th>
-              	</tr>
-             	<tr>
-                    <td>Karim</td>
-                    <td>Benzema</td> 
-                    <td>Karim_kb69</td>
-                    <td>
-                        <button type="button" class="btn btn-info btn-xs">
-                        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs">
-                        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                    </td>
-              	</tr>
-                <tr>
-                    <td>Harry</td>
-                    <td>Potter</td> 
-                    <td>HP_du_77</td>
-                    <td>
-                        <button type="button" class="btn btn-info btn-xs">
-                        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs">
-                        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                    </td>
-              	</tr>
-            </table>
             
             <hr>
         	<p class="text-center">Construit avec <span class="glyphicon glyphicon-heart"></span> par <a href="https://fr.linkedin.com/in/yoann-lathuiliere-05b716a9">Yoann Lathuiliere</a></p>
