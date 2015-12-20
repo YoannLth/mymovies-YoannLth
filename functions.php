@@ -11,4 +11,12 @@
 		
 		return $emplacementDB;
 	}
+	
+	function recupererInfosFilms($db, $id_film){
+		$stmt = $db->prepare("SELECT * FROM movie WHERE mov_id = :id");
+		$stmt->bindParam(':id', $id_film);
+		$stmt->execute();
+		$res = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $res;
+	}
 ?>

@@ -43,9 +43,8 @@
 							echo "<h2 class=\"movie_h2\">$movie_title</h2>";
 							echo "<h3>$movie_director, $movie_year</h3>";
 							echo "<p class=\"text-justify movie_p\">$movie_long_desc</p>";
-                        ?>
-                    	
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Editer</button>
+							echo "<a type=\"button\" class=\"btn btn-primary\" href=\"edition.php?id=$id\"><span class=\"glyphicon glyphicon-edit\"></span> Editer</a>";
+                        ?>                        
 					</div>  
             	</div>              
             </div>
