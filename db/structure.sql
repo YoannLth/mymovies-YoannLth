@@ -6,5 +6,6 @@ create table movie (
     mov_description_short varchar(500) not null,
     mov_description_long varchar(2000) not null,
     mov_author varchar(150) not null,
-    mov_year integer not null
+    mov_year integer not null,
+	mov_poster varchar(150) not null
 ) engine=innodb character set utf8 collate utf8_unicode_ci;

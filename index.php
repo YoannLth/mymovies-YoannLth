@@ -20,25 +20,21 @@
         	include 'include/navbar.php';
         ?>
         
-        <div class="container">
-          	<h2><a href="movie.php">X-Men : Days of Future Past</a></h2>
-            <p>Dans un futur proche, les mutants et les humains ont été décimés par les Sentinelles, des robots biologiques capables de copier les pouvoirs des mutants. Seuls quelques mutants, dont Kitty Pride, Iceman, Storm et Bishop, résistent encore. Le Professeur X et Magneto décident d'envoyer Logan dans le passé afin d'empêcher le meurtre de Bolivar Trask, un scientifique américain responsable du programme d'armement dont la mort déclenchera le programme des Sentinelles. Wolverine arrive donc en 1973 afin de convaincre Charles Xavier et Erik Lehnsherr de stopper Mystique dans sa mission, une tâche qu'ils devront accomplir avec l'aide de Beast et de Quicksilver.</p>
-        </div>
-        
-        <div class="container">
-          	<h2><a href="movie.php">Interstellar</a></h2>
-            <p>Dans un futur proche, face à une Terre exsangue, un groupe d'explorateurs utilise un vaisseau interstellaire pour franchir un trou de ver permettant de parcourir des distances jusque-là infranchissables. Leur but : trouver un nouveau foyer pour l'humanité.</p>
-        </div>
-        
-        <div class="container">
-          	<h2><a href="movie.php">Immitation Game</a></h2>
-            <p>L'histoire hors-norme d'Alan Turing, le mathématicien anglais qui aida à percer le code de l'outil de communication des Allemands durant la Seconde Guerre mondiale : la machine Enigma.</p>
-        </div>
-        
-        <div class="container">
-          	<h2><a href="movie.php">Equalizer</a></h2>
-            <p>McCall, un homme qui pense avoir rangé son passé mystérieux derrière lui, se consacre à sa nouvelle vie tranquille. Au moment où il rencontre Teri, une jeune fille sous le contrôle de gangsters russes violents, il décide d'agir. McCall sort ainsi de sa retraite et voit son désir de justice réveillé.</p>
-            
+        <?php
+			$sth = $dbh->prepare("SELECT * FROM movie");
+			$sth->execute();
+			$result = $sth->fetchAll();
+			
+			foreach($result as $res){
+				$id = $res['mov_id'];
+				$name = $res['mov_name'];
+				$short_desc = $res['mov_description_short'];
+				echo "<div class=\"container\">";
+				echo"<h2><a href=\"movie.php?id=$id\">$name</a></h2>";
+				echo "<p>$short_desc</p>";
+				echo "</div>";
+			}
+		?> 
             <hr>
         	<p class="text-center">Construit avec <span class="glyphicon glyphicon-heart"></span> par <a href="https://fr.linkedin.com/in/yoann-lathuiliere-05b716a9">Yoann Lathuiliere</a></p>
         </div>

@@ -15,7 +15,22 @@
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
         ?>
-
+        
+		<?php
+			$sth = $dbh->prepare("SELECT * FROM movie WHERE mov_id = :id");
+			$sth->execute();
+			$result = $sth->fetchAll();
+			
+			foreach($result as $res){
+				$id = $res['mov_id'];
+				$name = $res['mov_name'];
+				$short_desc = $res['mov_description_short'];
+				echo "<div class=\"container\">";
+				echo"<h2><a href=\"movie.php?id=$id\">$name</a></h2>";
+				echo "<p>$short_desc</p>";
+				echo "</div>";
+			}
+		?>
 		<div class="container">
         	<div class="jumbotron">
             	<div class="container">

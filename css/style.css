@@ -23,7 +23,7 @@
 }
 
 h2{
-	color : #2D7DBA;
+	color : #F8F8F8;
 }
 
 .movie_h2{
@@ -60,4 +60,8 @@ hr {
 	margin-right: auto;
 	margin-top: 20px;
 	margin-bottom: 60px;
+}
+
+.black{
+	color : #333;
 }
