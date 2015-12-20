@@ -13,7 +13,8 @@
 	$movie_poster = $_FILES['moviePoster']['name'];
 	
 	try {
-		$nom_fichier_poster = enregistrerAfficheFilm($movie_title, $lastId, $_FILES);
+		var_dump($_FILES);
+		$nom_fichier_poster = enregistrerAfficheFilm($movie_title, $_FILES);
 		
 		$stmt = $dbh->prepare("INSERT INTO movie ( mov_name, mov_description_short, mov_description_long, mov_author, mov_year, mov_poster) VALUES (:movie_title, :movie_short_description, :movie_long_description, :movie_director, :movie_year, :movie_poster)");
 		$stmt->bindParam(':movie_title', $movie_title);
