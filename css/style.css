@@ -65,3 +65,15 @@ hr {
 .black{
 	color : #333;
 }
+
+.btn_space{
+	margin-right : 4px;
+}
+
+.center_modal{
+	text-align : center !important;	
+}
+
+.alert_perso{
+	margin-bottom : 0px !important;
+}

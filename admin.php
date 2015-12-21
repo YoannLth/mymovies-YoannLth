@@ -7,6 +7,10 @@
     	<link href="lib/Bootstrap%203.5/css/bootstrap.min.css" rel="stylesheet">
     	<link href="css/style.css" rel="stylesheet">
         <title>Administration</title>
+        <?php
+			// Inclusion du script de connexion a la base de données
+			include 'db/db_connect.php';
+		?>
     </head>
 
     <body>
@@ -18,48 +22,123 @@
 
 		<div class="container">
         	<h1 class="text-center">Administration</h1>
+            <div>
+                <div class="nav_container">
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                      <li role="presentation" class="active"><a id="Films_Tab" href="#films" aria-controls="films" role="tab" data-toggle="tab">Films</a></li>
+                      <li role="presentation"><a id="Utilisateurs_Tab" href="#utilisateurs" aria-controls="utilisateurs" role="tab" data-toggle="tab">Utilisateurs</a></li>
+                    </ul>
+                </div>
             
-            <div class="nav_container">
-                <ul class="nav nav-tabs nav-justified">
-                  <li role="presentation"><a href="#">Films</a></li>
-                  <li role="presentation" class="active"><a href="#">Utilisateurs</a></li>
-                </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="films">
+                        <table class="table" style="margin-bottom:60px;">
+                        	<tr>
+                            	<th>Id</th>
+                                <th>Film</th>
+                                <th>Réalisateur</th> 
+                                <th>Année</th>
+                                <th>Action</th>
+                            </tr>
+                        	<?php
+								$sth = $dbh->prepare("SELECT * FROM movie");
+								$sth->execute();
+								$result = $sth->fetchAll();
+								
+								foreach($result as $res){
+									$id = $res['mov_id'];
+									$name = $res['mov_name'];
+									$director = $res['mov_author'];
+									$year = $res['mov_year'];
+									echo "<tr>";
+                                	echo "<td>$id</td>";
+                                	echo "<td>$name</td>";
+                                	echo "<td>$director</td>";
+									echo "<td>$year</td>";
+                                	echo "<td>";
+                                    echo "<a type=\"button\" class=\"btn btn-info btn-xs btn_space\" href=\"edition.php?id=$id\">";
+                                    echo "<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>";
+                                    echo "</a>";
+                                    echo "<a type=\"button\" class=\"btn btn-danger btn-xs\" href=\"#\" onclick=\"delete_movie($id)\">";
+                                    echo "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
+                                    echo "</a>";
+                                	echo "</td>";
+                            		echo "</tr>";
+								}
+							?> 
+                            </table>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="utilisateurs">
+                        <table class="table" style="margin-bottom:60px;">
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th> 
+                                <th>Login</th>
+                                <th>Action</th>
+                            </tr>
+                            <tr>
+                                <td>Karim</td>
+                                <td>Benzema</td> 
+                                <td>Karim_kb69</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-xs">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Harry</td>
+                                <td>Potter</td> 
+                                <td>HP_du_77</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-xs">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>                    
+                    </div>
+                  </div>
+             </div>
+            
+            
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                  Launch demo modal
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  	<div class="alert alert-danger alert-dismissible fade in alert_perso" role="alert">
+                    	<div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title text-center" id="myModalLabel">Attention</h4>
+                        </div>
+                      	<div class="modal-body text-center">
+                      		<p>Vous êtes sur le point de supprimer ce film.</p>
+                      	</div>
+                      	<div class="modal-footer center_modal">
+                       	 	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        	<button type="button" class="btn btn-danger" onclick="delete_mov()">Valider</button>
+                            <form>
+                            	<input type="hidden" id="mov_id_hidden" value="">
+                            </form>
+                     	</div>
+                    </div>
+                </div>
+              </div>
             </div>
             
-            <table class="table" style="margin-bottom:60px;">
-            	<tr>
-                    <th>Nom</th>
-                    <th>Prenom</th> 
-                    <th>Login</th>
-                    <th>Action</th>
-              	</tr>
-             	<tr>
-                    <td>Karim</td>
-                    <td>Benzema</td> 
-                    <td>Karim_kb69</td>
-                    <td>
-                        <button type="button" class="btn btn-info btn-xs">
-                        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs">
-                        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                    </td>
-              	</tr>
-                <tr>
-                    <td>Harry</td>
-                    <td>Potter</td> 
-                    <td>HP_du_77</td>
-                    <td>
-                        <button type="button" class="btn btn-info btn-xs">
-                        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs">
-                        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                    </td>
-              	</tr>
-            </table>
+            
             
             <?php
 				// Inclusion du script PHP pour générer le pied de page
@@ -69,5 +148,25 @@
       	
         <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
     	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
+        <script>
+			$('#Films_Tab').click(function (e) {
+			  e.preventDefault();
+			  $(this).tab('show')
+			})
+			$('#Utilisateurs_Tab').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			
+			function delete_movie(id) {
+				$('#myModal').modal('show');
+				$("#mov_id_hidden").val(id);
+			}
+			
+			function delete_mov(){
+				id = $("#mov_id_hidden").val();
+				document.location.href='db/delete.php?id=' + id +'';
+			}
+		</script>
     </body>
 </html>
