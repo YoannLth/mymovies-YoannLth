@@ -79,11 +79,14 @@
                     	<a type="button" href="https://www.themoviedb.org/?language=fr" target="_blank" class="btn btn-default btn-success"><span class="glyphicon glyphicon-search"></span> Infos films</a>
                         </div>
                     </div>
+                    <input type="hidden" name="id_movie_hidden" value="<?php echo $id; ?>"/>
                 </form>        
             </div>
             
-            <hr>
-        	<p class="text-center">Construit avec <span class="glyphicon glyphicon-heart"></span> par <a href="https://fr.linkedin.com/in/yoann-lathuiliere-05b716a9">Yoann Lathuiliere</a></p>
+            <?php
+				// Inclusion du script PHP pour générer le pied de page
+        		include 'include/footer.php';
+        	?>
         </div>
       	
         <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>

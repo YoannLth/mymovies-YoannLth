@@ -24,8 +24,10 @@
               <a href="index.php" class="alert-link">Retour au menu</a>              
             </div>
             
-            <hr>
-        	<p class="text-center">Construit avec <span class="glyphicon glyphicon-heart"></span> par <a href="https://fr.linkedin.com/in/yoann-lathuiliere-05b716a9">Yoann Lathuiliere</a></p>
+            <?php
+				// Inclusion du script PHP pour générer le pied de page
+        		include 'include/footer.php';
+        	?>
         </div>
       	
         <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>

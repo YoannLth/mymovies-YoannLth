@@ -5,6 +5,7 @@
 	include '../functions.php';
 	
 	// Recupération des données
+	$movie_id = $_POST["id_movie_hidden"];
 	$movie_title = $_POST["movieTitle"];
 	$movie_short_description = $_POST["movieShortDescription"];
 	$movie_long_description = $_POST["movieLongDescription"];
