@@ -17,13 +17,14 @@
 		var_dump($_FILES);
 		$nom_fichier_poster = enregistrerAfficheFilm($movie_title, $_FILES);
 		
-		$stmt = $dbh->prepare("INSERT INTO movie ( mov_name, mov_description_short, mov_description_long, mov_author, mov_year, mov_poster) VALUES (:movie_title, :movie_short_description, :movie_long_description, :movie_director, :movie_year, :movie_poster)");
+		$stmt = $dbh->prepare("UPDATE movie SET mov_name=:movie_title, mov_description_short=:movie_short_description, mov_description_long=:movie_long_description, mov_author=:movie_director, mov_year=:movie_year, mov_poster=:movie_poster WHERE mov_id=:id");
 		$stmt->bindParam(':movie_title', $movie_title);
 		$stmt->bindParam(':movie_short_description', $movie_short_description);
 		$stmt->bindParam(':movie_long_description', $movie_long_description);
 		$stmt->bindParam(':movie_director', $movie_director);
 		$stmt->bindParam(':movie_year', $movie_year);
 		$stmt->bindParam(':movie_poster', $nom_fichier_poster);
+		$stmt->bindParam(':id', $movie_id);
 		$stmt->execute();
 		
 		$lastId = strval($dbh->lastInsertId());

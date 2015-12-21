@@ -18,7 +18,7 @@
 
 		<div class="container">
         	<div class="alert alert-success text-center" role="alert">
-              Le film à bien été ajouté dans la base de donnée!
+              L'oppération à été executé avec succes!
               <br />
               <br />
               <a href="index.php" class="alert-link">Retour au menu</a>              
