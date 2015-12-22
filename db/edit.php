@@ -14,7 +14,15 @@
 	$movie_poster = $_FILES['moviePoster']['name'];
 	
 	try {
-		var_dump($_FILES);
+		$stmt = $dbh->prepare("SELECT * FROM movie WHERE mov_id=:id");
+		$stmt->bindParam(':id', $movie_id);
+		$stmt->execute();
+		$resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		
+		$chemin_fichier = '../' . $resultat['mov_poster'];
+		unlink($chemin_fichier);
+		
 		$nom_fichier_poster = enregistrerAfficheFilm($movie_title, $_FILES);
 		
 		$stmt = $dbh->prepare("UPDATE movie SET mov_name=:movie_title, mov_description_short=:movie_short_description, mov_description_long=:movie_long_description, mov_author=:movie_director, mov_year=:movie_year, mov_poster=:movie_poster WHERE mov_id=:id");

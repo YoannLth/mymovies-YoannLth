@@ -27,6 +27,8 @@
               <ul class="dropdown-menu">
                 <li><a href="#">Profil</a></li>
                 <li><a href="#">Quitter</a></li>
+                <li><a href="inscription.php">Inscription</a></li>
+                <li><a href="#">Connexion</a></li>
               </ul>
             </li>
           </ul>
