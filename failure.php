@@ -15,6 +15,8 @@
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
 			$message = $_GET["message"];
+			$url = $_GET["url"];
+			$message_retour = $_GET["message_retour"];
         ?>
 
 		<div class="container">
@@ -22,7 +24,7 @@
               <?php echo $message ?>
               <br />
               <br />
-              <a href="inscription.php" class="alert-link">Retour à l'inscription</a>              
+              <a href="<?php echo $url ?>" class="alert-link"><?php echo $message_retour ?></a>              
             </div>
             
             <?php

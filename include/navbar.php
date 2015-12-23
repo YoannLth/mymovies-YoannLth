@@ -23,13 +23,23 @@
                 <a href="admin.php"><span class="glyphicon glyphicon-cog"></span> Administration</a>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Bienvenue, Yoann <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Profil</a></li>
-                <li><a href="#">Quitter</a></li>
-                <li><a href="inscription.php">Inscription</a></li>
-                <li><a href="#">Connexion</a></li>
-              </ul>
+				<?php
+                    if(!isset($_SESSION['login'])){
+                        echo "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"glyphicon glyphicon-user\"></span> Ouvrir une session<span class=\"caret\"></span></a>";
+						echo "<ul class=\"dropdown-menu\">";
+						echo "<li><a href=\"inscription.php\">Inscription</a></li>";
+						echo "<li><a href=\"connexion.php\">Connexion</a></li>"; 
+                    }
+                    else{
+						$login = $_SESSION['login'];
+						echo "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"glyphicon glyphicon-user\"></span> Bienvenue, $login<span class=\"caret\"></span></a>";
+						echo "<ul class=\"dropdown-menu\">";
+						echo "<li><a href=\"#\">Profil</a></li>";
+						echo "<li><a href=\"db/deconnexion.php\">Deconnexion</a></li>";
+                    }
+                ?>
+
+                </ul>
             </li>
           </ul>
       </div><!-- /.container-fluid -->

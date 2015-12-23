@@ -11,25 +11,22 @@
 	$query = $dbh->prepare('SELECT * FROM user_mymovies WHERE user_username = :name');
 	$query->bindParam(':name', $user_username_script);
 	$query->execute();
-	$res = $query->rowCount();
+	$res = $query->fetch(PDO::FETCH_ASSOC);
 	
-	if($res!=0){
-		$message = "Le nom d'utilisateur existe déja";
-		$retour = "inscription.php";
-		$message_retour = "Retour a la page d'inscription";
+	if( ($user_username_script != $res["user_username"]) or ($user_password_script != $res["user_password"]) ){
+		$message = "Login ou mot de passe incorrect";
+		$retour = "connexion.php";
+		$message_retour = "Retour a la page de connexion";
+		
 		header("Location: ../failure.php?message=$message&url=$retour&message_retour=$message_retour");	
 	}
 	else{
 		try {
-			$stmt = $dbh->prepare("INSERT INTO user_mymovies ( user_username, user_password) VALUES (:username, :password)");
-			$stmt->bindParam(':username', $user_username_script);
-			$stmt->bindParam(':password', $user_password_script);
-			$stmt->execute();
-			
-			// redirection pour eviter le rechargement de la page avec F5 et ainsi ré-insserer les données dans la BD.
+			session_start();
+			$_SESSION['login'] = $user_username_script;
+						
 			header('Location: ../succes.php');
-			die();
-			
+			exit();	
 			
 		} catch (PDOException $e) {
 			print "Erreur !: " . $e->getMessage() . "<br/>";
