@@ -1,3 +1,17 @@
+<?php		
+	session_start();
+	if (!isset($_SESSION['login'])) {
+		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
+		$retour = "index.php";
+		$message_retour = "Retour au menu";
+		
+		header("Location: failure.php?message=$message&url=$retour&message_retour=$message_retour");
+		exit();
+	}
+	else{
+	}
+?>
+
 <!doctype html>
 <html>
     <head>
@@ -27,6 +41,7 @@
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                       <li role="presentation" class="active"><a id="Films_Tab" href="#films" aria-controls="films" role="tab" data-toggle="tab">Films</a></li>
                       <li role="presentation"><a id="Utilisateurs_Tab" href="#utilisateurs" aria-controls="utilisateurs" role="tab" data-toggle="tab">Utilisateurs</a></li>
+                      <li role="presentation"><a id="Categorie_Tab" href="#categorie" aria-controls="categorie" role="tab" data-toggle="tab">Catégories</a></li>
                     </ul>
                 </div>
             
@@ -73,39 +88,66 @@
                     <div role="tabpanel" class="tab-pane fade" id="utilisateurs">
                         <table class="table" style="margin-bottom:60px;">
                             <tr>
-                                <th>Nom</th>
-                                <th>Prenom</th> 
-                                <th>Login</th>
+                                <th>Id</th>
+                                <th>Login</th> 
                                 <th>Action</th>
                             </tr>
-                            <tr>
-                                <td>Karim</td>
-                                <td>Benzema</td> 
-                                <td>Karim_kb69</td>
-                                <td>
-                                    <button type="button" class="btn btn-info btn-xs">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-xs">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Harry</td>
-                                <td>Potter</td> 
-                                <td>HP_du_77</td>
-                                <td>
-                                    <button type="button" class="btn btn-info btn-xs">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-xs">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+								$sth = $dbh->prepare("SELECT * FROM user_mymovies");
+								$sth->execute();
+								$result = $sth->fetchAll();
+								
+								foreach($result as $res){
+									$id = $res['user_id'];
+									$username = $res['user_username'];
+									echo "<tr>";
+                                	echo "<td>$id</td>";
+                                	echo "<td>$username</td>";
+                                	echo "<td>";
+                                    echo "<a type=\"button\" class=\"btn btn-info btn-xs btn_space\" href=\"edition.php?id=$id\">";
+                                    echo "<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>";
+                                    echo "</a>";
+                                    echo "<a type=\"button\" class=\"btn btn-danger btn-xs\" href=\"#\" onclick=\"delete_movie($id)\">";
+                                    echo "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
+                                    echo "</a>";
+                                	echo "</td>";
+                            		echo "</tr>";
+								}
+							?>
                         </table>                    
                     </div>
+                    
+                    
+                    <div role="tabpanel" class="tab-pane fade" id="categorie">
+                        <table class="table" style="margin-bottom:60px;">
+                            <tr>
+                                <th>Id</th>
+                                <th>Genre</th> 
+                                <th>Action</th>
+                            </tr>
+                            <?php
+								$sth = $dbh->prepare("SELECT * FROM movie_genre");
+								$sth->execute();
+								$result = $sth->fetchAll();
+								
+								foreach($result as $res){
+									$id = $res['genre_id'];
+									$genre = $res['genre_name'];
+									echo "<tr>";
+                                	echo "<td>$id</td>";
+                                	echo "<td>$genre</td>";
+                                	echo "<td>";
+                                    echo "<a type=\"button\" class=\"btn btn-danger btn-xs\" href=\"#\" onclick=\"delete_category($id)\">";
+                                    echo "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
+                                    echo "</a>";
+                                	echo "</td>";
+                            		echo "</tr>";
+								}
+							?>
+                        </table>                    
+                    </div>
+                    
+                    
                   </div>
              </div>
             
@@ -126,6 +168,30 @@
                         	<button type="button" class="btn btn-danger" onclick="delete_mov()">Valider</button>
                             <form>
                             	<input type="hidden" id="mov_id_hidden" value="">
+                            </form>
+                     	</div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="myModal_category" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  	<div class="alert alert-danger alert-dismissible fade in alert_perso" role="alert">
+                    	<div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title text-center" id="myModalLabel">Attention</h4>
+                        </div>
+                      	<div class="modal-body text-center">
+                      		<p>Vous êtes sur le point de supprimer cette catégorie.</p>
+                      	</div>
+                      	<div class="modal-footer center_modal">
+                       	 	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        	<button type="button" class="btn btn-danger" onclick="delete_categ()">Valider</button>
+                            <form>
+                            	<input type="hidden" id="categ_id_hidden" value="">
                             </form>
                      	</div>
                     </div>
@@ -161,6 +227,16 @@
 			function delete_mov(){
 				id = $("#mov_id_hidden").val();
 				document.location.href='db/delete.php?id=' + id +'';
+			}
+			
+			function delete_category(id) {
+				$('#myModal_category').modal('show');
+				$("#categ_id_hidden").val(id);
+			}
+			
+			function delete_categ(){
+				id = $("#categ_id_hidden").val();
+				document.location.href='db/delete_category.php?id=' + id +'';
 			}
 		</script>
     </body>

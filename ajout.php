@@ -1,3 +1,17 @@
+<?php		
+	session_start();
+	if (!isset($_SESSION['login'])) {
+		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
+		$retour = "index.php";
+		$message_retour = "Retour au menu";
+		
+		header("Location: failure.php?message=$message&url=$retour&message_retour=$message_retour");
+		exit();
+	}
+	else{
+	}
+?>
+
 <!doctype html>
 <html>
     <head>

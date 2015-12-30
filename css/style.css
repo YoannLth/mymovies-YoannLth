@@ -77,3 +77,11 @@ hr {
 .alert_perso{
 	margin-bottom : 0px !important;
 }
+
+.table td {
+   text-align: center;   
+}
+
+.table th {
+   text-align: center;   
+}

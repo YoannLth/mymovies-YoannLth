@@ -11,27 +11,29 @@
           <a class="navbar-brand" href="index.php">
             <span class="glyphicon glyphicon-film"></span> MyMovies
            </a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="ajout.php">Ajouter un film</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="admin.php"><span class="glyphicon glyphicon-cog"></span> Administration</a>
-            </li>
-            <li class="dropdown">
+        </div>        
 				<?php
                     if(!isset($_SESSION['login'])){
+						echo "<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">";
+						echo "<ul class=\"nav navbar-nav navbar-right\">";
+						echo "<li class=\"dropdown\">";
                         echo "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"glyphicon glyphicon-user\"></span> Ouvrir une session<span class=\"caret\"></span></a>";
 						echo "<ul class=\"dropdown-menu\">";
-						echo "<li><a href=\"inscription.php\">Inscription</a></li>";
-						echo "<li><a href=\"connexion.php\">Connexion</a></li>"; 
+						echo "<li><a href=\"connexion.php\">Connexion</a></li>";
+						echo "<li><a href=\"inscription.php\">Inscription</a></li>"; 
                     }
                     else{
 						$login = $_SESSION['login'];
+						echo "<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">";
+						echo "<ul class=\"nav navbar-nav navbar-left\">";
+						echo "<li><a href=\"ajout.php\">Ajouter un film</a></li>";
+						echo "<li><a href=\"ajout_category.php\">Ajouter une catégorie</a></li>";
+						echo "</ul>";
+						echo "<ul class=\"nav navbar-nav navbar-right\">";
+						echo "<li>";
+						echo "<a href=\"admin.php\"><span class=\"glyphicon glyphicon-cog\"></span> Administration</a>";
+						echo "</li>";
+						echo "<li class=\"dropdown\">";
 						echo "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"glyphicon glyphicon-user\"></span> Bienvenue, $login<span class=\"caret\"></span></a>";
 						echo "<ul class=\"dropdown-menu\">";
 						echo "<li><a href=\"#\">Profil</a></li>";
