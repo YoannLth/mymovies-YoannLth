@@ -90,24 +90,34 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Login</th> 
+                                <th>Rôle</th>
                                 <th>Action</th>
                             </tr>
                             <?php
-								$sth = $dbh->prepare("SELECT * FROM user_mymovies");
+								$stmt = $dbh->prepare("SELECT user_id FROM user_mymovies WHERE user_username = :username");
+								$stmt->bindParam(':username', $_SESSION['login']);
+								$stmt->execute();
+								$resSQL = $stmt->fetch(PDO::FETCH_ASSOC);
+								$id_current = intval($resSQL["user_id"]);
+								
+								$sth = $dbh->prepare("SELECT user_id,user_username,user_role FROM user_mymovies WHERE user_id != :curr_id");
+								$sth->bindParam(':curr_id', $id_current);
 								$sth->execute();
 								$result = $sth->fetchAll();
 								
 								foreach($result as $res){
 									$id = $res['user_id'];
 									$username = $res['user_username'];
+									$role = $res['user_role'];
 									echo "<tr>";
                                 	echo "<td>$id</td>";
                                 	echo "<td>$username</td>";
+									echo "<td>$role</td>";
                                 	echo "<td>";
-                                    echo "<a type=\"button\" class=\"btn btn-info btn-xs btn_space\" href=\"edition.php?id=$id\">";
+                                    echo "<a type=\"button\" class=\"btn btn-info btn-xs btn_space\" href=\"edition_user.php?id=$id\">";
                                     echo "<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>";
                                     echo "</a>";
-                                    echo "<a type=\"button\" class=\"btn btn-danger btn-xs\" href=\"#\" onclick=\"delete_movie($id)\">";
+                                    echo "<a type=\"button\" class=\"btn btn-danger btn-xs\" href=\"#\" onclick=\"delete_user($id)\">";
                                     echo "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
                                     echo "</a>";
                                 	echo "</td>";
@@ -200,6 +210,31 @@
             </div>
             
             
+            <!-- Modal -->
+            <div class="modal fade" id="myModal_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  	<div class="alert alert-danger alert-dismissible fade in alert_perso" role="alert">
+                    	<div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title text-center" id="myModalLabel">Attention</h4>
+                        </div>
+                      	<div class="modal-body text-center">
+                      		<p>Vous êtes sur le point de supprimer cet utilisateur.</p>
+                      	</div>
+                      	<div class="modal-footer center_modal">
+                       	 	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        	<button type="button" class="btn btn-danger" onclick="delete_us()">Valider</button>
+                            <form>
+                            	<input type="hidden" id="user_id_hidden" value="">
+                            </form>
+                     	</div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            
             
             <?php
 				// Inclusion du script PHP pour générer le pied de page
@@ -237,6 +272,16 @@
 			function delete_categ(){
 				id = $("#categ_id_hidden").val();
 				document.location.href='db/delete_category.php?id=' + id +'';
+			}
+			
+			function delete_user(id) {
+				$('#myModal_user').modal('show');
+				$("#user_id_hidden").val(id);
+			}
+			
+			function delete_us(){
+				id = $("#user_id_hidden").val();
+				document.location.href='db/delete_user.php?id=' + id +'';
 			}
 		</script>
     </body>

@@ -16,13 +16,14 @@ create table movie (
     mov_author varchar(150) not null,
     mov_year integer not null,
 	mov_poster varchar(150) not null,
-	mov_mark TINYINT not null,
-	mov_genre integer not null	
+	mov_mark TINYINT not null DEFAULT 0,
+	mov_genre integer	
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 create table user_mymovies (
     user_id integer not null primary key auto_increment,
     user_username varchar(255) not null,
+	user_role varchar(255) not null DEFAULT 'VISITOR',
     user_password varchar(255) not null
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 

@@ -13,6 +13,10 @@
            </a>
         </div>        
 				<?php
+					// Inclusion du script de connexion a la base de données
+					include 'db/db_connect.php';
+					include 'functions.php';
+					
                     if(!isset($_SESSION['login'])){
 						echo "<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">";
 						echo "<ul class=\"nav navbar-nav navbar-right\">";
@@ -24,6 +28,7 @@
                     }
                     else{
 						$login = $_SESSION['login'];
+						testSiUtilisateurExiste($dbh,$login);
 						echo "<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">";
 						echo "<ul class=\"nav navbar-nav navbar-left\">";
 						echo "<li><a href=\"ajout.php\">Ajouter un film</a></li>";

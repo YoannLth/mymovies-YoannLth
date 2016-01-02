@@ -1,12 +1,15 @@
 <?php
 	// Inclusion du script PHP pour générer la Navbar
 	include 'db_connect.php';
+
 	// Inclusion du script PHP contenant les fonctions PHP nécessaire aux traitements des données
 	include '../functions.php';
-	
+		
 	session_start();
-	if (!isset($_SESSION['login'])) {
-		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
+	
+	$role = testSiAdmin($dbh,$_SESSION['login']);
+	if ($role != "ADMIN") {
+		$message = "Vous devez être Administrateur pour pouvoir acceder à cette fonction";
 		$retour = "index.php";
 		$message_retour = "Retour au menu";
 		
@@ -14,8 +17,8 @@
 		exit();
 	}
 	else{
-		if( count($_POST) != 1){
-			$message = "Erreur formulaire";
+		if(!isset($_GET["id"])){
+			$message = "Erreur";
 			$retour = "index.php";
 			$message_retour = "Retour au menu";
 		
@@ -23,12 +26,12 @@
 		exit();	
 		}
 		else{
-			try {
+			try {		
 				// Recupération des données
-				$movie_category = $_POST["nameCategory"];
-				
-				$stmt = $dbh->prepare("INSERT INTO movie_genre (genre_name) VALUES (:movie_category)");
-				$stmt->bindParam(':movie_category', $movie_category);
+				$user_id = $_GET["id"];
+			
+				$stmt = $dbh->prepare("DELETE FROM user_mymovies WHERE user_id=:id");
+				$stmt->bindParam(':id', $user_id);
 				$stmt->execute();
 				
 				// redirection pour eviter le rechargement de la page avec F5 et ainsi ré-insserer les données dans la BD.
@@ -42,4 +45,5 @@
 			}
 		}
 	}
+	
 ?>

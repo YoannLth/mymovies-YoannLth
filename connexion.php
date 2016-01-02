@@ -26,13 +26,13 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Nom utilisateur</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="user_username_form" value="" pattern=".{5,15}" placeholder="" required autofocus></input>
+                            <input type="text" class="form-control" name="user_username_form" value="" pattern=".{5,15}" placeholder="Entrez votre nom d'utilisateur (entre 5 et 15 caractères)" required autofocus></input>
                         </div>
                     </div>
                     <div class="form-group">
                     	<label class="col-sm-4 control-label">Mot de passe</label>
                     	<div class="col-sm-6">
-                    		<input type="password" class="form-control" name="user_password_form" pattern=".{6,15}" placeholder="" required></input>
+                    		<input type="password" class="form-control" name="user_password_form" pattern=".{6,15}" placeholder="Entrez votre mdp (entre 6 et 15 caractères)" required></input>
                     	</div>
                     </div>
                     <div class="form-group">

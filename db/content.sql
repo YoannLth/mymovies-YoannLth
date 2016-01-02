@@ -1,4 +1,3 @@
-
 INSERT INTO movie_genre(genre_name)
 VALUES
 ('Action'),
@@ -39,7 +38,7 @@ VALUES
 ('SÃ©rial'),
 ('Spectacle'),
 ('TÃ©lÃ©film'),
-('ThÃ©âtre'),
+('ThÃ©atre'),
 ('Thriller'),
 ('Western');
 
@@ -52,3 +51,4 @@ VALUES
 ('007 Spectre', '007 Spectre est un film d''espionnage amÃ©ricano-britannique rÃ©alisÃ© par Sam Mendes, sorti en 2015. Vingt-quatriÃ¨me aventure cinÃ©matographique de James Bond, le titre du film fait rÃ©fÃ©rence Ã  l''organisation criminelle SPECTRE, apparue dans de nombreux Ã©pisodes de la saga depuis ses dÃ©buts.', 'Un message cryptique surgi du passÃ© entraÃ®ne James Bond dans une mission trÃ¨s personnelle Ã  Mexico puis Ã  Rome, oÃ¹ il rencontre Lucia Sciarra, la trÃ¨s belle veuve dâ€™un cÃ©lÃ¨bre criminel. Bond rÃ©ussit Ã  infiltrer une rÃ©union secrÃ¨te rÃ©vÃ©lant une redoutable organisation baptisÃ©e Spectre. \r\nPendant ce temps, Ã  Londres, Max Denbigh, le nouveau directeur du Centre pour la SÃ©curitÃ© Nationale, remet en cause les actions de Bond et lâ€™existence mÃªme du MI6, dirigÃ© par M. Bond persuade Moneypenny et Q de lâ€™aider secrÃ¨tement Ã  localiser Madeleine Swann, la fille de son vieil ennemi, Mr White, qui pourrait dÃ©tenir le moyen de dÃ©truire Spectre. Fille de tueur, Madeleine comprend Bond mieux que personneâ€¦ \r\nEn sâ€™approchant du cÅ“ur de Spectre, Bond va dÃ©couvrir quâ€™il existe peut-Ãªtre un terrible lien entre lui et le mystÃ©rieux ennemi quâ€™il traqueâ€¦', 'Sam Mendes', 2015, 'images/007_Spectre160.png',5,1),
 ('Star Wars, Ã©pisode VII : Le RÃ©veil de la Force', 'Dans une galaxie lointaine, trÃ¨s lointaine, un nouvel Ã©pisode de la saga "Star Wars", 30 ans aprÃ¨s les Ã©vÃ©nements du "Retour du Jedi".', 'Plus de trente ans aprÃ¨s la bataille d''Endor, la galaxie n''en a pas fini avec la tyrannie et lâ€™oppression. Les membres de la RÃ©sistance menÃ©s par la gÃ©nÃ©rale Leia Organa combattent les nouveaux ennemis de la RÃ©publique, le Premier Ordre. A la tÃªte de ce nouveau rÃ©gime brutal se trouvent le Leader suprÃªme Snoke et son apprenti, le jeune Kylo Ren. DÃ©passÃ©s, les rÃ©sistants ont besoin de Luke Skywalker. Mais le dernier des maÃ®tres Jedi se cache depuis bien longtemps.\r\n\r\nLa rÃ©sistance envoie sur Jakku son meilleur pilote, Poe Dameron, pour rÃ©cupÃ©rer une carte qui les mÃ¨nera Ã  Luke. Mais l''arrivÃ©e de Kylo Ren et ses soldats leur complique la tÃ¢che...', 'J.J. Abrams', 2015, 'images/Star_Wars____pisode_VII___Le_R__veil_de_la_Force259.png',5,1);
 
+INSERT INTO `mymovies`.`user_mymovies` (`user_id`, `user_username`, `user_role`, `user_password`) VALUES (NULL, 'Admin1', 'ADMIN', '9e6d5f635e1ca9bc7434772cef0c9a25');
