@@ -23,3 +23,7 @@
 * Protection des injections SQL
 * Protection des injections JavaScript
 * Protection des formulaires et traitement de base de données (Seulement pour les utilisateurs connectés, isset, required sur les formulaires, ...) 
+
+# Remarques
+* Ne pas oublier d'executer les 3 scripts SQL (dossier /db).
+* Compte administrateur du site MyMovie (Username : Admin1, Password : Admin1_polytech).
