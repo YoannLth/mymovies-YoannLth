@@ -13,7 +13,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<link href="lib/Bootstrap%203.5/css/bootstrap.min.css" rel="stylesheet">
     	<link href="css/style.css" rel="stylesheet">
-        <title>MyMovies - X-Men : Days of Future Past</title>
+        <title>Details du film</title>
     </head>
 
     <body>
@@ -44,9 +44,8 @@
         		include 'include/footer.php';
         	?>
         </div>
-
-		<script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
-    	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
-
     </body>
+    
+	<script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
+  	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
 </html>

@@ -4,8 +4,6 @@
 	// Inclusion du script PHP contenant les fonctions PHP nécessaire aux traitements des données
 	include '../include/functions.php';
 	
-	
-	
 	session_start();
 	if (!isset($_SESSION['login'])) {
 		$message = "Vous devez être connecté pour pouvoir acceder à cette page";

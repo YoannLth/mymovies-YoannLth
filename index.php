@@ -1,4 +1,7 @@
-<?php		
+<?php
+	// Inclusion du script de connexion a la base de données
+	include 'db/db_connect.php';
+	
 	// Inclusion du script contenant les fonctions PHP définie pour l'application
 	include 'include/functions.php';
 	
@@ -14,10 +17,6 @@
         <link href="lib/Bootstrap%203.5/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
     	<title>MyMovies</title>
-        <?php
-			// Inclusion du script de connexion a la base de données
-			include 'db/db_connect.php';
-		?>
     </head>
 
     <body>
@@ -55,35 +54,36 @@
         		include 'include/footer.php';
         	?>
        	</div>
-        
-        <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
-    	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script> 
-        
-		<!-- Script qui gère l'affichage des films en fonction du filtre -->  
-        <script>
-			var tabGenre = [];
-			
-			$(':checkbox').change(function() {
-				tabGenre = [];
-				$(':checkbox:checked').each(function (){
-					if (this.checked) {
-						var value = $(this).val(); 
-						tabGenre.push(value);
-					}
-				});
-				
-				$('.containerMovie').hide();
-				
-				if(tabGenre.length == 0){
-					$('.containerMovie').show();		
-				}
-				else{			
-					for(i=0;i<tabGenre.length;i++){
-						var dataGenre = '[data-genre="'+tabGenre[i] +'"]';
-						$('.containerMovie'+dataGenre).show();	
-					}
-				}
-			});
-    	</script>
+         
     </body>
+    
+    <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
+	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script> 
+    
+    <!-- Script qui gère l'affichage des films en fonction du filtre -->  
+    <script>
+        var tabGenre = [];
+        
+        $(':checkbox').change(function() {
+            tabGenre = [];
+            $(':checkbox:checked').each(function (){
+                if (this.checked) {
+                    var value = $(this).val(); 
+                    tabGenre.push(value);
+                }
+            });
+            
+            $('.containerMovie').hide();
+            
+            if(tabGenre.length == 0){
+                $('.containerMovie').show();		
+            }
+            else{			
+                for(i=0;i<tabGenre.length;i++){
+                    var dataGenre = '[data-genre="'+tabGenre[i] +'"]';
+                    $('.containerMovie'+dataGenre).show();	
+                }
+            }
+        });
+    </script>
 </html>

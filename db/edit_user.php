@@ -6,23 +6,27 @@
 		
 	session_start();
 	
-	$role = testSiAdmin($dbh,$_SESSION['login']);
+	// Récupération du role de l'utilisateur courant
+	$role = recupererRoleUtilisateurCourant($dbh,$_SESSION['login']);
+	
+	// Redirection si non admin
 	if ($role != "ADMIN") {
 		$message = "Vous devez être Administrateur pour pouvoir acceder à cette fonction";
 		$retour = "index.php";
 		$message_retour = "Retour au menu";
 		
-		header("Location: ../failure.php?message=$message&url=$retour&message_retour=$message_retour");
-		exit();
+		redirectionEchecDepuisScript($message,$retour,$message_retour);
 	}
+	
+	// Sinon execution du script de modification d'un utilisateur autorisé
 	else{
+		// Test si tout les paramètres necessaires ont bien été données
 		if( count($_POST) != 2){
 			$message = "Erreur formulaire";
 			$retour = "index.php";
 			$message_retour = "Retour au menu";
 		
-			header("Location: ../failure.php?message=$message&url=$retour&message_retour=$message_retour");
-			die();	
+			redirectionEchecDepuisScript($message,$retour,$message_retour);
 		}
 		else{
 			try {	
@@ -36,8 +40,7 @@
 				$stmt->execute();
 				
 				// redirection pour eviter le rechargement de la page avec F5 et ainsi ré-insserer les données dans la BD.
-				header('Location: ../succes.php');
-				die();
+				redirectionSucces();
 				
 			} catch (PDOException $e) {
 				print "Erreur !: " . $e->getMessage() . "<br/>";

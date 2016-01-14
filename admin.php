@@ -1,3 +1,13 @@
+<?php
+	// Inclusion du script de connexion a la base de données
+	include 'db/db_connect.php';
+	
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
+	include 'include/functions.php';		
+	
+	testSiConnecte();
+?>
+
 <!doctype html>
 <html>
     <head>
@@ -7,15 +17,6 @@
     	<link href="lib/Bootstrap%203.5/css/bootstrap.min.css" rel="stylesheet">
     	<link href="css/style.css" rel="stylesheet">
         <title>Administration</title>
-        <?php
-			// Inclusion du script de connexion a la base de données
-			include 'db/db_connect.php';
-			
-			// Inclusion du script contenant les fonctions PHP définie pour l'application
-			include 'include/functions.php';		
-			
-			testSiConnecte();
-		?>
     </head>
 
     <body>
@@ -168,59 +169,59 @@
         		include 'include/footer.php';
         	?>
         </div>
-      	
-        <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
-    	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
-        
-        <!-- Fonctions JavaScript necessaire a l'affichage des fenêtres modales, des tableaux -->
-        <script>
-			// Fonction JS qui affiche le tableau des films
-			$('#Films_Tab').click(function (e) {
-			  e.preventDefault();
-			  $(this).tab('show')
-			})
-			
-			// Fonction JS qui affiche le tableau des utilisateurs
-			$('#Utilisateurs_Tab').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			})
-			
-			// Fonction JS qui affiche la fentre modale pour la suppression d'une catégorie
-			function delete_category(id) {
-				$('#myModal_category').modal('show');
-				$("#categ_id_hidden").val(id);
-			}
-			
-			// Fonction qui remplie le champ caché de la fenetre modale, necessaire pour le $_GET du script de suppression d'un film
-			function delete_movie(id) {
-				$('#myModal').modal('show');
-				$("#mov_id_hidden").val(id);
-			}
-			
-			// Fonction qui remplie le champ caché de la fenetre modale, necessaire pour le $_GET du script de suppression d'un utilisateur
-			function delete_user(id) {
-				$('#myModal_user').modal('show');
-				$("#user_id_hidden").val(id);
-			}
-			
-			// Fonction JS qui 'appelle' le script de suppression d'un film apres valdiation
-			function delete_mov(){
-				id = $("#mov_id_hidden").val();
-				document.location.href='db/delete.php?id=' + id +'';
-			}
-			
-			// Fonction JS qui 'appelle' le script de suppression d'une catégorie apres valdiation
-			function delete_categ(){
-				id = $("#categ_id_hidden").val();
-				document.location.href='db/delete_category.php?id=' + id +'';
-			}
-			
-			// Fonction JS qui 'appelle' le script de suppression d'un utilisateur apres valdiation
-			function delete_us(){
-				id = $("#user_id_hidden").val();
-				document.location.href='db/delete_user.php?id=' + id +'';
-			}
-		</script>
     </body>
+    
+    <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
+	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
+    
+    <!-- Fonctions JavaScript necessaire a l'affichage des fenêtres modales, des tableaux -->
+    <script>
+        // Fonction JS qui affiche le tableau des films
+        $('#Films_Tab').click(function (e) {
+          e.preventDefault();
+          $(this).tab('show')
+        })
+        
+        // Fonction JS qui affiche le tableau des utilisateurs
+        $('#Utilisateurs_Tab').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        })
+        
+        // Fonction JS qui affiche la fentre modale pour la suppression d'une catégorie
+        function delete_category(id) {
+            $('#myModal_category').modal('show');
+            $("#categ_id_hidden").val(id);
+        }
+        
+        // Fonction qui remplie le champ caché de la fenetre modale, necessaire pour le $_GET du script de suppression d'un film
+        function delete_movie(id) {
+            $('#myModal').modal('show');
+            $("#mov_id_hidden").val(id);
+        }
+        
+        // Fonction qui remplie le champ caché de la fenetre modale, necessaire pour le $_GET du script de suppression d'un utilisateur
+        function delete_user(id) {
+            $('#myModal_user').modal('show');
+            $("#user_id_hidden").val(id);
+        }
+        
+        // Fonction JS qui 'appelle' le script de suppression d'un film apres valdiation
+        function delete_mov(){
+            id = $("#mov_id_hidden").val();
+            document.location.href='db/delete.php?id=' + id +'';
+        }
+        
+        // Fonction JS qui 'appelle' le script de suppression d'une catégorie apres valdiation
+        function delete_categ(){
+            id = $("#categ_id_hidden").val();
+            document.location.href='db/delete_category.php?id=' + id +'';
+        }
+        
+        // Fonction JS qui 'appelle' le script de suppression d'un utilisateur apres valdiation
+        function delete_us(){
+            id = $("#user_id_hidden").val();
+            document.location.href='db/delete_user.php?id=' + id +'';
+        }
+    </script>
 </html>

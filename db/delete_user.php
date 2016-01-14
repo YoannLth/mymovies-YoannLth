@@ -7,7 +7,8 @@
 		
 	session_start();
 	
-	$role = testSiAdmin($dbh,$_SESSION['login']);
+	// Teste si l'utilisateur est bien un administrateur
+	$role = recupererRoleUtilisateurCourant($dbh,$_SESSION['login']);
 	if ($role != "ADMIN") {
 		$message = "Vous devez être Administrateur pour pouvoir acceder à cette fonction";
 		$retour = "index.php";
@@ -17,6 +18,7 @@
 		exit();
 	}
 	else{
+		// Test si l'ID est bien renseigné
 		if(!isset($_GET["id"])){
 			$message = "Erreur";
 			$retour = "index.php";

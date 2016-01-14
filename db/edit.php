@@ -5,21 +5,23 @@
 	include '../include/functions.php';
 	
 	session_start();
+	
+	// Teste si l'utilisateur est bien connecté
 	if (!isset($_SESSION['login'])) {
 		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
 		$retour = "index.php";
 		$message_retour = "Retour au menu";
 		
-		header("Location: ../failure.php?message=$message&url=$retour&message_retour=$message_retour");
-		exit();
+		redirectionEchecDepuisScript($message,$retour,$message_retour);
 	}
 	else{
+		// Test si tout les paramètres necessaires ont bien été données
 		if( count($_POST) != 7){
 			$message = "Erreur formulaire";
 			$retour = "index.php";
 			$message_retour = "Retour au menu";
 		
-			header("Location: ../failure.php?message=$message&url=$retour&message_retour=$message_retour");
+			redirectionEchecDepuisScript($message,$retour,$message_retour);
 		exit();	
 		}
 		else{
@@ -39,12 +41,14 @@
 				$stmt->execute();
 				$resultat = $stmt->fetch(PDO::FETCH_ASSOC);
 				
-				
+				// Supprésion de l'affiche du film actuelle
 				$chemin_fichier = '../' . $resultat['mov_poster'];
 				unlink($chemin_fichier);
 				
+				// Enregistrement de la nouvelle affiche
 				$nom_fichier_poster = enregistrerAfficheFilm($movie_title, $_FILES);
 				
+				// Mise a jour des données
 				$stmt = $dbh->prepare("UPDATE movie SET mov_name=:movie_title, mov_description_short=:movie_short_description, mov_description_long=:movie_long_description, mov_author=:movie_director, mov_year=:movie_year, mov_poster=:movie_poster, mov_genre = :movie_genre WHERE mov_id=:id");
 				$stmt->bindParam(':movie_title', $movie_title);
 				$stmt->bindParam(':movie_short_description', $movie_short_description);
@@ -59,8 +63,7 @@
 				$lastId = strval($dbh->lastInsertId());
 				
 				// redirection pour eviter le rechargement de la page avec F5 et ainsi ré-insserer les données dans la BD.
-				header('Location: ../succes.php');
-				die();
+				redirectionSucces();
 				
 				
 			} catch (PDOException $e) {

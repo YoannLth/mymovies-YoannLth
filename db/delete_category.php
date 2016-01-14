@@ -13,6 +13,7 @@
 		exit();
 	}
 	else{
+		// Test si t'ID est bien renseigné
 		if(!isset($_GET["id"])){
 			$message = "Erreur formulaire";
 			$retour = "index.php";

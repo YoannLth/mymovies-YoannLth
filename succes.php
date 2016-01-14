@@ -4,7 +4,7 @@
 	
 	testSiSessionEnCours();
 ?>
-
+        
 <!doctype html>
 <html>
     <head>
@@ -36,8 +36,8 @@
         		include 'include/footer.php';
         	?>
         </div>
-      	
-        <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
-    	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
     </body>
+    
+	<script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
+    <script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
 </html>

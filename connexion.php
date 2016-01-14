@@ -54,9 +54,9 @@
 				// Inclusion du script PHP pour générer le pied de page
         		include 'include/footer.php';
         	?>
-        </div>
-      	
-        <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
-    	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
+        </div> 
     </body>
+    
+    <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
+    <script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
 </html>

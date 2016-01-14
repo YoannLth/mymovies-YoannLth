@@ -19,6 +19,7 @@
 					// Inclusion du script de connexion a la base de données
 					include 'include/functions_navbar.php';
 					
+					// Navbar a afficher si l'utilisateur n'est pas connecté
                     if(!isset($_SESSION['login'])){
 						echo "<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">";
 						echo "<ul class=\"nav navbar-nav navbar-right\">";
@@ -28,6 +29,8 @@
 						echo "<li><a href=\"connexion.php\">Connexion</a></li>";
 						echo "<li><a href=\"inscription.php\">Inscription</a></li>"; 
                     }
+					
+					// Navbar a afficher si l'utilisateur est connecté
                     else{
 						$login = $_SESSION['login'];
 						testSiUtilisateurExiste($dbh,$login);
