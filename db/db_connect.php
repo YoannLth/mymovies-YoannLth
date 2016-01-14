@@ -13,7 +13,7 @@
 	
 	// Connexion
 	try {
-		$dbh = new PDO("mysql:host=dbHost;dbname=$dbName;charset=utf8", $dbUser, $dbPassword);
+		$dbh = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8", $dbUser, $dbPassword);
 	} catch (PDOException $e) {
 		print "Erreur !: " . $e->getMessage() . "<br/>";
 		die();
