@@ -13,7 +13,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<link href="lib/Bootstrap%203.5/css/bootstrap.min.css" rel="stylesheet">
     	<link href="css/style.css" rel="stylesheet">
-        <title>Réussite</title>
+        <title>Erreur</title>
     </head>
 
     <body>
