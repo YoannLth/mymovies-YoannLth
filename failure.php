@@ -22,9 +22,9 @@
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
 			
-			$message = $_GET["message"];
-			$url = $_GET["url"];
-			$message_retour = $_GET["message_retour"];
+			$message = htmlspecialchars($_GET["message"], ENT_QUOTES, 'UTF-8', false);
+			$url = htmlspecialchars($_GET["url"], ENT_QUOTES, 'UTF-8', false);
+			$message_retour = htmlspecialchars($_GET["message_retour"], ENT_QUOTES, 'UTF-8', false);
         ?>
 
 		<div class="container">

@@ -38,6 +38,16 @@
 		return $res;
 	}
 	
+	// Fonction qui récupère les infos d'un utilisateur depuis la base de données en fonction du nom d'utilisateur et retourne le résultat dans un tableau
+	function recupererToutesInfosUser_Username($dbh,$login){
+		// Recuperation d'information dans la base de données
+		$stmt = $dbh->prepare("SELECT * FROM user_mymovies WHERE user_username = :name");
+		$stmt->bindParam(':name', $login);
+		$stmt->execute();
+		$res = $stmt->fetch(PDO::FETCH_ASSOC);	
+		return $res;
+	}
+	
 	// Fonction qui récupère les infos d'un utilisateur depuis la base de données en fonction du nom d'utilisateur et retourne les résultat dans un tableau
 	function recupererRoleUtilisateurCourant($dbh,$login){
 		// Recuperation d'information dans la base de données
@@ -54,7 +64,18 @@
 		$res = $stmt->fetchAll();	
 		return $res;
 	}
+	
+	// Fonction qui récupère les infos des genres de films depuis la base de données et retourne les résultats dans un tableau
+	function recupererGenresFilm_IdGenre($dbh,$idGenre){
+		$stmt = $dbh->prepare("SELECT * FROM movie_genre WHERE genre_id=:id");
+		$stmt->bindParam(':id', $idGenre);
+		$stmt->execute();
+		$res = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $res;
+	}
 
+
+				
 	//
 	// -----------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------

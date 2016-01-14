@@ -26,7 +26,7 @@
 			// Inclusion du script de connexion a la base de données
 			include 'db/db_connect.php';
 			
-			$id = $_GET["id"];
+			$id = htmlspecialchars($_GET["id"], ENT_QUOTES, 'UTF-8', false);
 			
 			$result = recupererInfosFilms($dbh, $id);
 			

@@ -27,7 +27,7 @@
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
 			
-			$id = $_GET["id"];
+			$id = htmlspecialchars($_GET["id"], ENT_QUOTES, 'UTF-8', false);
 			
 			$result = recupererInfosUser($dbh, $id);
 						

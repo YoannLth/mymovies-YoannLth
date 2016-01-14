@@ -1,12 +1,14 @@
 <?php
-	// Inclusion du script PHP pour générer la Navbar
+
+	// Inclusion du script de connexion a la base de données
 	include 'db_connect.php';
-	// Inclusion du script PHP contenant les fonctions PHP nécessaire aux traitements des données
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
 	include '../include/functions.php';
 	
 	session_start();
 	
 	// Teste si l'utilisateur est bien connecté
+	// Redirection si il ne l'est pas
 	if (!isset($_SESSION['login'])) {
 		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
 		$retour = "index.php";
@@ -16,30 +18,28 @@
 	}
 	else{
 		// Test si tout les paramètres necessaires ont bien été données
+		// Redirection si tout les paramètres ne sont pas renseignés
 		if( count($_POST) != 7){
 			$message = "Erreur formulaire";
 			$retour = "index.php";
 			$message_retour = "Retour au menu";
 		
 			redirectionEchecDepuisScript($message,$retour,$message_retour);
-		exit();	
 		}
 		else{
 			try {
 				// Recupération des données
-				$movie_id = $_POST["id_movie_hidden"];
-				$movie_title = $_POST["movieTitle"];
-				$movie_short_description = $_POST["movieShortDescription"];
-				$movie_long_description = $_POST["movieLongDescription"];
-				$movie_director = $_POST["movieDirector"];
-				$movie_year = $_POST["movieYear"];
-				$movie_genre = $_POST["movieGenre"];
+				$movie_id = htmlspecialchars($_POST["id_movie_hidden"], ENT_QUOTES, 'UTF-8', false);
+				$movie_title = htmlspecialchars($_POST["movieTitle"], ENT_QUOTES, 'UTF-8', false);
+				$movie_short_description = htmlspecialchars($_POST["movieShortDescription"], ENT_QUOTES, 'UTF-8', false);
+				$movie_long_description = htmlspecialchars($_POST["movieLongDescription"], ENT_QUOTES, 'UTF-8', false);
+				$movie_director = htmlspecialchars($_POST["movieDirector"], ENT_QUOTES, 'UTF-8', false);
+				$movie_year = htmlspecialchars($_POST["movieYear"], ENT_QUOTES, 'UTF-8', false);
+				$movie_genre = htmlspecialchars($_POST["movieGenre"], ENT_QUOTES, 'UTF-8', false);
 				$movie_poster = $_FILES['moviePoster']['name'];
-			
-				$stmt = $dbh->prepare("SELECT * FROM movie WHERE mov_id=:id");
-				$stmt->bindParam(':id', $movie_id);
-				$stmt->execute();
-				$resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+				
+				// Récupération des données depuis la base de données
+				$resultat = recupererInfosFilms($dbh, $movie_id);
 				
 				// Supprésion de l'affiche du film actuelle
 				$chemin_fichier = '../' . $resultat['mov_poster'];
@@ -72,4 +72,5 @@
 			}
 		}
 	}
+	
 ?>

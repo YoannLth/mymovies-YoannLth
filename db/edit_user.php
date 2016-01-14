@@ -1,7 +1,8 @@
 <?php
-	// Inclusion du script PHP pour générer la Navbar
+
+	// Inclusion du script de connexion a la base de données
 	include 'db_connect.php';
-	// Inclusion du script PHP contenant les fonctions PHP nécessaire aux traitements des données
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
 	include '../include/functions.php';
 		
 	session_start();
@@ -21,6 +22,7 @@
 	// Sinon execution du script de modification d'un utilisateur autorisé
 	else{
 		// Test si tout les paramètres necessaires ont bien été données
+		// Redirection si il manque des paramètres
 		if( count($_POST) != 2){
 			$message = "Erreur formulaire";
 			$retour = "index.php";
@@ -31,8 +33,8 @@
 		else{
 			try {	
 				// Recupération des données
-				$user_id = $_POST["id_user_hidden"];
-				$user_role = $_POST["userRole"];
+				$user_id = htmlspecialchars($_POST["id_user_hidden"], ENT_QUOTES, 'UTF-8', false);
+				$user_role = htmlspecialchars($_POST["userRole"], ENT_QUOTES, 'UTF-8', false);
 				
 				$stmt = $dbh->prepare("UPDATE user_mymovies SET user_role=:role WHERE user_id=:id");
 				$stmt->bindParam(':role', $user_role);
@@ -48,4 +50,5 @@
 			}
 		}
 	}
+	
 ?>

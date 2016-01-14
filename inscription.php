@@ -36,13 +36,13 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Nom utilisateur</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="user_username_form" value="" pattern=".{5,30}" placeholder="Entrez un nom d'utilisateur (entre 5 et 30 caractères)" required autofocus></input>
+                            <input type="text" class="form-control" name="user_username_form" value="" pattern=".{5,30}" placeholder="entre 5 et 30 caractères ('',',\,<,>,& non pris en compte)" required autofocus></input>
                         </div>
                     </div>
                     <div class="form-group">
                     	<label class="col-sm-4 control-label">Mot de passe</label>
                     	<div class="col-sm-6">
-                    		<input type="password" class="form-control" name="user_password_form" pattern=".{6,15}" placeholder="Entrez un mdp (entre 6 et 15 caractères)" required></input>
+                    		<input type="password" class="form-control" name="user_password_form" pattern=".{6,15}" placeholder="entre 6 et 15 caractères ('',',\,<,>,& non pris en compte)" required></input>
                     	</div>
                     </div>
                     <div class="form-group">
