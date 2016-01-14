@@ -1,6 +1,6 @@
 # MyMovies
-Projet scolaire / PHP / Bootstrap / Systeme de gestion de films
-School project / PHP / Bootstrap / Movie management system
+* Projet scolaire / PHP / Bootstrap / Systeme de gestion de films
+* School project / PHP / Bootstrap / Movie management system
 
 # Respect des consignes
 * Données de l’application stockées dans une base de données.
@@ -18,3 +18,8 @@ School project / PHP / Bootstrap / Movie management system
 * Gestion des utilisateurs (inscription, connexion, déconnexion).
 * Gestion de catégories.
 * Projet déployé sur OpenShift ( URL ).
+* Requêtes d'informations parametrés sur la page d'ajout d'un film (https://www.themoviedb.org)
+* Renommage des fichiers uploadés (pour eviter les conflits entre 2 affiches de 2 films avec le même titre par exemple)
+* Protection des injections SQL
+* Protection des injections JavaScript
+* Protection des formulaires et traitement de base de données (Seulement pour les utilisateurs connectés, isset, required sur les formulaires, ...) 

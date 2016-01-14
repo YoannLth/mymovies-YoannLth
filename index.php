@@ -57,9 +57,6 @@
          
     </body>
     
-    <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
-	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script> 
-    
     <!-- Script qui gère l'affichage des films en fonction du filtre -->  
     <script>
         var tabGenre = [];
