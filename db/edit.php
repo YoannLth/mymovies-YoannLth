@@ -2,7 +2,7 @@
 	// Inclusion du script PHP pour générer la Navbar
 	include 'db_connect.php';
 	// Inclusion du script PHP contenant les fonctions PHP nécessaire aux traitements des données
-	include '../functions.php';
+	include '../include/functions.php';
 	
 	session_start();
 	if (!isset($_SESSION['login'])) {
@@ -14,7 +14,7 @@
 		exit();
 	}
 	else{
-		if( count($_POST) != 6){
+		if( count($_POST) != 7){
 			$message = "Erreur formulaire";
 			$retour = "index.php";
 			$message_retour = "Retour au menu";
@@ -31,6 +31,7 @@
 				$movie_long_description = $_POST["movieLongDescription"];
 				$movie_director = $_POST["movieDirector"];
 				$movie_year = $_POST["movieYear"];
+				$movie_genre = $_POST["movieGenre"];
 				$movie_poster = $_FILES['moviePoster']['name'];
 			
 				$stmt = $dbh->prepare("SELECT * FROM movie WHERE mov_id=:id");
@@ -44,13 +45,14 @@
 				
 				$nom_fichier_poster = enregistrerAfficheFilm($movie_title, $_FILES);
 				
-				$stmt = $dbh->prepare("UPDATE movie SET mov_name=:movie_title, mov_description_short=:movie_short_description, mov_description_long=:movie_long_description, mov_author=:movie_director, mov_year=:movie_year, mov_poster=:movie_poster WHERE mov_id=:id");
+				$stmt = $dbh->prepare("UPDATE movie SET mov_name=:movie_title, mov_description_short=:movie_short_description, mov_description_long=:movie_long_description, mov_author=:movie_director, mov_year=:movie_year, mov_poster=:movie_poster, mov_genre = :movie_genre WHERE mov_id=:id");
 				$stmt->bindParam(':movie_title', $movie_title);
 				$stmt->bindParam(':movie_short_description', $movie_short_description);
 				$stmt->bindParam(':movie_long_description', $movie_long_description);
 				$stmt->bindParam(':movie_director', $movie_director);
 				$stmt->bindParam(':movie_year', $movie_year);
 				$stmt->bindParam(':movie_poster', $nom_fichier_poster);
+				$stmt->bindParam(':movie_genre', $movie_genre);
 				$stmt->bindParam(':id', $movie_id);
 				$stmt->execute();
 				

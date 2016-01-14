@@ -1,11 +1,8 @@
 <?php		
-	if(!isset($_SESSION)) 
-    { 
-        session_start();
-    } 
-	else{
-
-	}
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
+	include 'include/functions.php';
+	
+	testSiSessionEnCours();
 ?>
 
 <!doctype html>
@@ -24,6 +21,7 @@
     	<?php
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
+			
 			$message = $_GET["message"];
 			$url = $_GET["url"];
 			$message_retour = $_GET["message_retour"];

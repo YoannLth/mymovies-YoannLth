@@ -1,15 +1,7 @@
 <?php		
-	session_start();
-	if (!isset($_SESSION['login'])) {
-		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
-		$retour = "index.php";
-		$message_retour = "Retour au menu";
-		
-		header("Location: failure.php?message=$message&url=$retour&message_retour=$message_retour");
-		exit();
-	}
-	else{
-	}
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
+	include 'include/functions.php';		
+	testSiConnecte();
 ?>
 
 <!doctype html>
@@ -29,11 +21,13 @@
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
         ?>
-
+        
+		<!-- Vue globale de la page --> 
 		<div class="container">
             
             <h2 class="text-center black">Ajout d'une catégorie</h2>
             <div class="well">
+            	<!-- Formulaire d'ajout d'une catégorie --> 
                 <form class="form-horizontal" role="form" action="db/add_category.php" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Nom catégorie</label>

@@ -85,3 +85,13 @@ hr {
 .table th {
    text-align: center;   
 }
+
+#filtres{
+	padding-left : 0px !important;	
+}
+
+#dropdownMenu1{
+	background-color: #5BC0DE;
+	color:#FFFFFF;
+	 
+}

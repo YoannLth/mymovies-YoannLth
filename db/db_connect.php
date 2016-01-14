@@ -5,7 +5,7 @@
 	$db = 'mymovies';
 	
 	try {
-		$dbh = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+		$dbh = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
 	} catch (PDOException $e) {
 		print "Erreur !: " . $e->getMessage() . "<br/>";
 		die();

@@ -1,17 +1,3 @@
-<?php		
-	session_start();
-	if (!isset($_SESSION['login'])) {
-		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
-		$retour = "index.php";
-		$message_retour = "Retour au menu";
-		
-		header("Location: failure.php?message=$message&url=$retour&message_retour=$message_retour");
-		exit();
-	}
-	else{
-	}
-?>
-
 <!doctype html>
 <html>
     <head>
@@ -24,6 +10,11 @@
         <?php
 			// Inclusion du script de connexion a la base de données
 			include 'db/db_connect.php';
+			
+			// Inclusion du script contenant les fonctions PHP définie pour l'application
+			include 'include/functions.php';		
+			
+			testSiConnecte();
 		?>
     </head>
 
@@ -33,10 +24,12 @@
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
         ?>
-
+		
+        <!-- Vue globale de la page --> 
 		<div class="container">
         	<h1 class="text-center">Administration</h1>
             <div>
+            	<!-- Onglets tableaux --> 
                 <div class="nav_container">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                       <li role="presentation" class="active"><a id="Films_Tab" href="#films" aria-controls="films" role="tab" data-toggle="tab">Films</a></li>
@@ -45,8 +38,9 @@
                     </ul>
                 </div>
             
-                  <!-- Tab panes -->
+                  <!-- Tableaux -->
                   <div class="tab-content">
+                  	<!-- Tableau films --> 
                     <div role="tabpanel" class="tab-pane fade in active" id="films">
                         <table class="table" style="margin-bottom:60px;">
                         	<tr>
@@ -57,34 +51,12 @@
                                 <th>Action</th>
                             </tr>
                         	<?php
-								$sth = $dbh->prepare("SELECT * FROM movie");
-								$sth->execute();
-								$result = $sth->fetchAll();
-								
-								foreach($result as $res){
-									$id = $res['mov_id'];
-									$name = $res['mov_name'];
-									$director = $res['mov_author'];
-									$year = $res['mov_year'];
-									echo "<tr>";
-                                	echo "<td>$id</td>";
-                                	echo "<td>$name</td>";
-                                	echo "<td>$director</td>";
-									echo "<td>$year</td>";
-                                	echo "<td>";
-                                    echo "<a type=\"button\" class=\"btn btn-info btn-xs btn_space\" href=\"edition.php?id=$id\">";
-                                    echo "<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>";
-                                    echo "</a>";
-                                    echo "<a type=\"button\" class=\"btn btn-danger btn-xs\" href=\"#\" onclick=\"delete_movie($id)\">";
-                                    echo "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
-                                    echo "</a>";
-                                	echo "</td>";
-                            		echo "</tr>";
-								}
+								afficheTableauFilmsAdmin($dbh);
 							?> 
                             </table>
                     </div>
-
+					
+                    <!-- Tableau utilisateurs --> 
                     <div role="tabpanel" class="tab-pane fade" id="utilisateurs">
                         <table class="table" style="margin-bottom:60px;">
                             <tr>
@@ -94,40 +66,12 @@
                                 <th>Action</th>
                             </tr>
                             <?php
-								$stmt = $dbh->prepare("SELECT user_id FROM user_mymovies WHERE user_username = :username");
-								$stmt->bindParam(':username', $_SESSION['login']);
-								$stmt->execute();
-								$resSQL = $stmt->fetch(PDO::FETCH_ASSOC);
-								$id_current = intval($resSQL["user_id"]);
-								
-								$sth = $dbh->prepare("SELECT user_id,user_username,user_role FROM user_mymovies WHERE user_id != :curr_id");
-								$sth->bindParam(':curr_id', $id_current);
-								$sth->execute();
-								$result = $sth->fetchAll();
-								
-								foreach($result as $res){
-									$id = $res['user_id'];
-									$username = $res['user_username'];
-									$role = $res['user_role'];
-									echo "<tr>";
-                                	echo "<td>$id</td>";
-                                	echo "<td>$username</td>";
-									echo "<td>$role</td>";
-                                	echo "<td>";
-                                    echo "<a type=\"button\" class=\"btn btn-info btn-xs btn_space\" href=\"edition_user.php?id=$id\">";
-                                    echo "<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>";
-                                    echo "</a>";
-                                    echo "<a type=\"button\" class=\"btn btn-danger btn-xs\" href=\"#\" onclick=\"delete_user($id)\">";
-                                    echo "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
-                                    echo "</a>";
-                                	echo "</td>";
-                            		echo "</tr>";
-								}
+								afficheTableauUtilisateursAdmin($dbh);
 							?>
                         </table>                    
                     </div>
                     
-                    
+                    <!-- Tableau genres --> 
                     <div role="tabpanel" class="tab-pane fade" id="categorie">
                         <table class="table" style="margin-bottom:60px;">
                             <tr>
@@ -136,23 +80,7 @@
                                 <th>Action</th>
                             </tr>
                             <?php
-								$sth = $dbh->prepare("SELECT * FROM movie_genre");
-								$sth->execute();
-								$result = $sth->fetchAll();
-								
-								foreach($result as $res){
-									$id = $res['genre_id'];
-									$genre = $res['genre_name'];
-									echo "<tr>";
-                                	echo "<td>$id</td>";
-                                	echo "<td>$genre</td>";
-                                	echo "<td>";
-                                    echo "<a type=\"button\" class=\"btn btn-danger btn-xs\" href=\"#\" onclick=\"delete_category($id)\">";
-                                    echo "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>";
-                                    echo "</a>";
-                                	echo "</td>";
-                            		echo "</tr>";
-								}
+								afficheTableauGenresAdmin($dbh);
 							?>
                         </table>                    
                     </div>
@@ -161,14 +89,14 @@
                   </div>
              </div>
             
-            <!-- Modal -->
+            <!-- Fenêtre modale pour la suppression d'un film -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   	<div class="alert alert-danger alert-dismissible fade in alert_perso" role="alert">
                     	<div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title text-center" id="myModalLabel">Attention</h4>
+                            <h4 class="modal-title text-center">Attention</h4>
                         </div>
                       	<div class="modal-body text-center">
                       		<p>Vous êtes sur le point de supprimer ce film.</p>
@@ -185,14 +113,14 @@
               </div>
             </div>
             
-            <!-- Modal -->
+            <!-- Fenêtre modale pour la suppression d'une catégorie -->
             <div class="modal fade" id="myModal_category" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   	<div class="alert alert-danger alert-dismissible fade in alert_perso" role="alert">
                     	<div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title text-center" id="myModalLabel">Attention</h4>
+                            <h4 class="modal-title text-center">Attention</h4>
                         </div>
                       	<div class="modal-body text-center">
                       		<p>Vous êtes sur le point de supprimer cette catégorie.</p>
@@ -210,14 +138,14 @@
             </div>
             
             
-            <!-- Modal -->
+            <!-- Fenêtre modale pour la suppression d'un utilisateur -->
             <div class="modal fade" id="myModal_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   	<div class="alert alert-danger alert-dismissible fade in alert_perso" role="alert">
                     	<div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title text-center" id="myModalLabel">Attention</h4>
+                            <h4 class="modal-title text-center">Attention</h4>
                         </div>
                       	<div class="modal-body text-center">
                       		<p>Vous êtes sur le point de supprimer cet utilisateur.</p>
@@ -234,8 +162,7 @@
               </div>
             </div>
             
-            
-            
+              
             <?php
 				// Inclusion du script PHP pour générer le pied de page
         		include 'include/footer.php';
@@ -244,41 +171,52 @@
       	
         <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
     	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
+        
+        <!-- Fonctions JavaScript necessaire a l'affichage des fenêtres modales, des tableaux -->
         <script>
+			// Fonction JS qui affiche le tableau des films
 			$('#Films_Tab').click(function (e) {
 			  e.preventDefault();
 			  $(this).tab('show')
 			})
+			
+			// Fonction JS qui affiche le tableau des utilisateurs
 			$('#Utilisateurs_Tab').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
 			})
 			
-			function delete_movie(id) {
-				$('#myModal').modal('show');
-				$("#mov_id_hidden").val(id);
-			}
-			
-			function delete_mov(){
-				id = $("#mov_id_hidden").val();
-				document.location.href='db/delete.php?id=' + id +'';
-			}
-			
+			// Fonction JS qui affiche la fentre modale pour la suppression d'une catégorie
 			function delete_category(id) {
 				$('#myModal_category').modal('show');
 				$("#categ_id_hidden").val(id);
 			}
 			
-			function delete_categ(){
-				id = $("#categ_id_hidden").val();
-				document.location.href='db/delete_category.php?id=' + id +'';
+			// Fonction qui remplie le champ caché de la fenetre modale, necessaire pour le $_GET du script de suppression d'un film
+			function delete_movie(id) {
+				$('#myModal').modal('show');
+				$("#mov_id_hidden").val(id);
 			}
 			
+			// Fonction qui remplie le champ caché de la fenetre modale, necessaire pour le $_GET du script de suppression d'un utilisateur
 			function delete_user(id) {
 				$('#myModal_user').modal('show');
 				$("#user_id_hidden").val(id);
 			}
 			
+			// Fonction JS qui 'appelle' le script de suppression d'un film apres valdiation
+			function delete_mov(){
+				id = $("#mov_id_hidden").val();
+				document.location.href='db/delete.php?id=' + id +'';
+			}
+			
+			// Fonction JS qui 'appelle' le script de suppression d'une catégorie apres valdiation
+			function delete_categ(){
+				id = $("#categ_id_hidden").val();
+				document.location.href='db/delete_category.php?id=' + id +'';
+			}
+			
+			// Fonction JS qui 'appelle' le script de suppression d'un utilisateur apres valdiation
 			function delete_us(){
 				id = $("#user_id_hidden").val();
 				document.location.href='db/delete_user.php?id=' + id +'';

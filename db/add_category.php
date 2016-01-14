@@ -2,7 +2,7 @@
 	// Inclusion du script PHP pour générer la Navbar
 	include 'db_connect.php';
 	// Inclusion du script PHP contenant les fonctions PHP nécessaire aux traitements des données
-	include '../functions.php';
+	include '../include/functions.php';
 	
 	session_start();
 	if (!isset($_SESSION['login'])) {

@@ -1,11 +1,8 @@
 <?php		
-	if(!isset($_SESSION)) 
-    { 
-        session_start();
-    } 
-	else{
-
-	}
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
+	include 'include/functions.php';
+	
+	testSiSessionEnCours();
 ?>
 
 <!doctype html>
@@ -24,34 +21,69 @@
     </head>
 
     <body>
-    
     	<?php
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
         ?>
+        <!-- Vue globale de la page --> 
+        <div class="container">
+            <div class="col-md-12" id="filtres">
+            	<!-- Filtres par genres --> 
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Filtres
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">                          
+						<?php
+							afficherChexboxListGenre($dbh);
+						?>
+                        </ul>
+                        </div>
+                    </small>
+                </div>
+			</div>
         
-        <?php
-			$sth = $dbh->prepare("SELECT * FROM movie");
-			$sth->execute();
-			$result = $sth->fetchAll();
-			
-			foreach($result as $res){
-				$id = $res['mov_id'];
-				$name = $res['mov_name'];
-				$short_desc = $res['mov_description_short'];
-				echo "<div class=\"container\">";
-				echo"<h2><a href=\"movie.php?id=$id\">$name</a></h2>";
-				echo "<p>$short_desc</p>";
-				echo "</div>";
-			}
-		?> 
+            <!-- Affichage des films et des infos (Titre, genre, description) --> 
+            <?php
+                afficherFilmsEtGenresIndex($dbh);
+            ?>
+             
+            <!-- Affichage du footer de la page (séparé dans une nouvelle balise PHP pour bien structurer la page et rendre la modification plus simple) -->  
             <?php
 				// Inclusion du script PHP pour générer le pied de page
         		include 'include/footer.php';
         	?>
-        </div>
+       	</div>
         
         <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
     	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script> 
+        
+		<!-- Script qui gère l'affichage des films en fonction du filtre -->  
+        <script>
+			var tabGenre = [];
+			
+			$(':checkbox').change(function() {
+				tabGenre = [];
+				$(':checkbox:checked').each(function (){
+					if (this.checked) {
+						var value = $(this).val(); 
+						tabGenre.push(value);
+					}
+				});
+				
+				$('.containerMovie').hide();
+				
+				if(tabGenre.length == 0){
+					$('.containerMovie').show();		
+				}
+				else{			
+					for(i=0;i<tabGenre.length;i++){
+						var dataGenre = '[data-genre="'+tabGenre[i] +'"]';
+						$('.containerMovie'+dataGenre).show();	
+					}
+				}
+			});
+    	</script>
     </body>
 </html>

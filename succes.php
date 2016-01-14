@@ -1,11 +1,8 @@
 <?php		
-	if(!isset($_SESSION)) 
-    { 
-        session_start();
-    } 
-	else{
-
-	}
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
+	include 'include/functions.php';
+	
+	testSiSessionEnCours();
 ?>
 
 <!doctype html>

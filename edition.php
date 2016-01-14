@@ -1,15 +1,9 @@
 <?php		
-	session_start();
-	if (!isset($_SESSION['login'])) {
-		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
-		$retour = "index.php";
-		$message_retour = "Retour au menu";
-		
-		header("Location: failure.php?message=$message&url=$retour&message_retour=$message_retour");
-		exit();
-	}
-	else{
-	}
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
+	include 'include/functions.php';		
+	testSiConnecte();
+	
+	testSiIdEditionFilm();
 ?>
 
 <!doctype html>
@@ -32,9 +26,6 @@
 			// Inclusion du script de connexion a la base de données
 			include 'db/db_connect.php';
 			
-			// Inclusion du script PHP contenant les fonctions PHP nécessaire aux traitements des données
-			include 'functions.php';
-			
 			$id = $_GET["id"];
 			
 			$result = recupererInfosFilms($dbh, $id);
@@ -44,17 +35,19 @@
 			$movie_description_long = $result['mov_description_long'];
 			$movie_author = $result['mov_author'];
 			$movie_year = $result['mov_year'];
+			$movie_genre = $result['mov_genre'];
         ?>
-
+		<!-- Vue globale de la page --> 
 		<div class="container">
             
             <h2 class="text-center black">Edition d'un film</h2>
             <div class="well">
+                <!-- Formulaire d'édition d'un film --> 
                 <form class="form-horizontal" role="form" action="db/edit.php" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Titre</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="movieTitle" value="<?php echo $movie_title; ?>" placeholder="Entrez le titre du film" required autofocus>
+                            <input type="text" class="form-control" id="movieTitle" name="movieTitle" value="<?php echo $movie_title; ?>" placeholder="Entrez le titre du film" required autofocus>
                         </div>
                     </div>
                     <div class="form-group">
@@ -67,6 +60,17 @@
                         <label class="col-sm-4 control-label">Description longue</label>
                         <div class="col-sm-6">
                         	<textarea class="form-control" name="movieLongDescription" rows="7" placeholder="Entrez sa description longue" required><?php echo $movie_description_long; ?></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Genre</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" name="movieGenre" required>
+                            	<option disabled selected> </option>
+								<?php
+                                    afficherGenreFilmEdition($dbh,$movie_genre);
+                                ?>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -90,7 +94,9 @@
                     <div class="form-group">
                     	<div class="col-sm-4 col-sm-offset-4">
                     	<button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-save"></span> Enregistrer</button>
-                    	<a type="button" href="https://www.themoviedb.org/?language=fr" target="_blank" class="btn btn-default btn-success"><span class="glyphicon glyphicon-search"></span> Infos films</a>
+                    	<a href="#">
+                        	<button type="button" onClick="chercherInfos()" class="btn btn-default btn-success"><span class="glyphicon glyphicon-search"></span> Infos films</button>
+                        </a>
                         </div>
                     </div>
                     <input type="hidden" name="id_movie_hidden" value="<?php echo $id; ?>"/>
@@ -105,5 +111,8 @@
       	
         <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
     	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
+        <script src="lib/JS/functions.js">
+			chercherInfos();
+		</script>
     </body>
 </html>

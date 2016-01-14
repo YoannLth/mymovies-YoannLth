@@ -3,32 +3,11 @@
 	include 'db/db_connect.php';
 	
 	// Inclusion du script PHP contenant les fonctions PHP nécessaire aux traitements des données
-	include 'functions.php';
+	include 'include/functions.php';
 		
-	session_start();
+	testSiConnecte();
 	
-	if (!isset($_SESSION['login'])) {
-		$message = "Vous devez être connecté pour pouvoir acceder à cette page";
-		$retour = "index.php";
-		$message_retour = "Retour au menu";
-		
-		header("Location: failure.php?message=$message&url=$retour&message_retour=$message_retour");
-		exit();
-	}
-	else{
-	}
-	
-	$role = testSiAdmin($dbh,$_SESSION['login']);
-	if ($role != "ADMIN") {
-		$message = "Vous devez être Administrateur pour pouvoir acceder à cette page";
-		$retour = "index.php";
-		$message_retour = "Retour au menu";
-		
-		header("Location: failure.php?message=$message&url=$retour&message_retour=$message_retour");
-		exit();
-	}
-	else{
-	}
+	testSiAdminVuePage($dbh);
 ?>
 
 <!doctype html>
@@ -51,17 +30,10 @@
 			$id = $_GET["id"];
 			
 			$result = recupererInfosUser($dbh, $id);
-			
-			//var_dump($result);
-			
+						
 			$user_id = $result['user_id'];
 			$user_username = $result['user_username'];
 			$user_role = $result['user_role'];
-			
-			$stmt = $dbh->prepare("SELECT DISTINCT user_role FROM user_mymovies");
-			$stmt->execute();
-			$roles = $stmt->fetchAll();
-			//var_dump($roles);
         ?>
 
 		<div class="container">
@@ -80,17 +52,7 @@
                     	<div class="col-sm-6">
                         	<select class="form-control" name="userRole" required>
                             	<?php
-									if(count($roles) != 1){
-										foreach($roles as $r){
-											$value = $r['user_role'];
-											echo '<option value="'.$value.'" '.(($value==$user_role)?'selected="selected"':"").'>'.$value.'</option>';
-										}
-									}
-									else{
-										
-										echo '<option value="ADMIN" '.(($user_role=='ADMIN')?'selected="selected"':"").'>ADMIN</option>';
-										echo '<option value="VISITOR" '.(($user_role=='VISITOR')?'selected="selected"':"").'>VISITOR</option>';
-									}
+									afficherSelectListUsers($dbh);
 								?>
                             </select>
                     	</div>
@@ -112,8 +74,5 @@
       	
         <script src="lib/jquery%202.4/jquery-2.1.4.min.js"></script>
     	<script src="lib/Bootstrap%203.5/js/bootstrap.min.js"></script>
-        <script>
-        
-        </script>
     </body>
 </html>

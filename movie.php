@@ -1,11 +1,8 @@
 <?php		
-	if(!isset($_SESSION)) 
-    { 
-        session_start();
-    } 
-	else{
-
-	}
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
+	include 'include/functions.php';
+	
+	testSiSessionEnCours();
 ?>
 
 <!doctype html>
@@ -29,31 +26,14 @@
 			include 'db/db_connect.php';
         ?>
         
+        <!-- Affichage global de la page -->
 		<div class="container">
         	<div class="jumbotron">
+            	<!-- Details du film -->
             	<div class="container">
                     <div class="col-md-6">
 						<?php
-                            $id = $_GET["id"];
-                            $sth = $dbh->prepare("SELECT * FROM movie WHERE mov_id = :id");
-                            $sth->bindParam(':id', $id);
-                            $sth->execute();
-                            $res = $sth->fetch(PDO::FETCH_ASSOC);
-                            
-                            //var_dump($res);
-							$movie_poster = $res["mov_poster"];
-							$movie_title = $res["mov_name"];
-							$movie_director = $res["mov_author"];
-							$movie_year = $res["mov_year"];
-							$movie_long_desc = $res["mov_description_long"];
-							
-							echo "<img class=\"img-responsive img-rounded\" alt=\"Responsive image\" src=\"$movie_poster\" style=\"border: 8px solid white; box-shadow: 2px 2px 2px 2px #999;\">";
-							echo "</div>";
-							echo "<div class=\"col-md-6\">";
-							echo "<h2 class=\"movie_h2\">$movie_title</h2>";
-							echo "<h3>$movie_director, $movie_year</h3>";
-							echo "<p class=\"text-justify movie_p\">$movie_long_desc</p>";
-							echo "<a type=\"button\" class=\"btn btn-primary\" href=\"edition.php?id=$id\"><span class=\"glyphicon glyphicon-edit\"></span> Editer</a>";
+                            afficherDetailsFilm($dbh);
                         ?>                        
 					</div>  
             	</div>              

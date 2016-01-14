@@ -15,7 +15,9 @@
 				<?php
 					// Inclusion du script de connexion a la base de données
 					include 'db/db_connect.php';
-					include 'functions.php';
+					
+					// Inclusion du script de connexion a la base de données
+					include 'include/functions_navbar.php';
 					
                     if(!isset($_SESSION['login'])){
 						echo "<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">";

@@ -1,3 +1,10 @@
+<?php		
+	// Inclusion du script contenant les fonctions PHP définie pour l'application
+	include 'include/functions.php';
+	
+	testSiDejaConnecte();
+?>
+
 <!doctype html>
 <html>
     <head>
@@ -14,19 +21,19 @@
     	<?php
 			// Inclusion du script PHP pour générer la Navbar
         	include 'include/navbar.php';
-			// Inclusion du script PHP pour générer la Navbar
-			include 'db/db_connect.php';
         ?>
-
+		
+        <!-- Vue globale de la page -->
 		<div class="container">
             
             <h2 class="text-center black">Connexion</h2>
             <div class="well">
+            	<!-- Formulaire de connexion --> 
                 <form class="form-horizontal" id="formulaire_inscription" role="form" action="db/connexion_user.php" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Nom utilisateur</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="user_username_form" value="" pattern=".{5,15}" placeholder="Entrez votre nom d'utilisateur (entre 5 et 15 caractères)" required autofocus></input>
+                            <input type="text" class="form-control" name="user_username_form" value="" pattern=".{5,30}" placeholder="Entrez votre nom d'utilisateur (entre 5 et 30 caractères)" required autofocus></input>
                         </div>
                     </div>
                     <div class="form-group">
